@@ -11,12 +11,12 @@
     "react-scripts": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start && watch:css",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
-    "build:watch": "postcss src/styles/tailwind.css -o src/styles/main.css --watch"
+    "watch:css": "build:css -watch",
+    "build:css": "postcss src/assets/styles/tailwind.css -o src/assets/styles/main.css"
   },
   "browserslist": {
     "production": [
@@ -31,7 +31,8 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "^10.0.2",
+    "postcss": "^8.1.9",
     "postcss-cli": "^8.3.0",
     "tailwindcss": "^2.0.1"
   }
