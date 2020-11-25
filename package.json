@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-rating-stars-component": "^2.2.0",
     "react-scripts": "^4.0.0"
   },
   "scripts": {
@@ -16,7 +17,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch:css": "build:css -watch",
-    "build:css": "postcss src/assets/styles/tailwind.css -o src/assets/styles/main.css"
+    "build:css": "postcss src/assets/tailwind.css -o src/assets/compiled.css"
   },
   "browserslist": {
     "production": [
