@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 
 import LogoImg from './assets/images/Logo.png';
 
+import AsideItem from './components/AsideItem.js';
+import ModalUi from './components/ModalUi.js';
 import RestaurantCard from './components/RestaurantCard.js';
 import SearchInput from './components/SearchInput.js';
 
 
 const App = () => {
     const [inputValue, setInputValue] = useState('')
+    const [modalOpened, setModalOpened] = useState(false)
 
     return (
         <div className="flex max-h-screen overflow-hidden">
+
             {/* Aside */}
-            <aside className="bg-brown bg-yellow-900 w-24 hidden lg:flex flex-col items-center pt-3" />
+            <aside className="bg-brown bg-yellow-900 w-24 hidden lg:flex flex-col items-center pt-3">
+                <AsideItem image="https://picsum.photos/200" title="Item 1"/>
+            </aside>
 
             {/* Main */}
             <main className="w-full lg:w-80 xl:w-96 h-screen flex flex-col items-center overflow-y-scroll">
@@ -38,6 +44,15 @@ const App = () => {
                     )}
                 </div>
             </main>
+
+            <ModalUi 
+                title="Restaurante Rei Do Peixe"
+                number="(415) 772-5000"
+                adress="Av. Dep. Ulisses Guimarães, 467-461 - Jardim Nova California, São João de Meriti - RJ, 25571-250"
+                opening_hours={true}
+                open={modalOpened} 
+                onClose={() => setModalOpened(!modalOpened)} 
+            />
         </div>
     )
 }
