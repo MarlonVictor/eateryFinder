@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import LogoImg from './assets/images/Logo.png';
 
 import AsideItem from './components/AsideItem.js';
+import MapContainer from './components/MapContainer.js';
 import ModalUi from './components/ModalUi.js';
 import RestaurantCard from './components/RestaurantCard.js';
 import SearchInput from './components/SearchInput.js';
@@ -10,18 +11,18 @@ import SearchInput from './components/SearchInput.js';
 
 const App = () => {
     const [inputValue, setInputValue] = useState('')
-    const [modalOpened, setModalOpened] = useState(false)
+    const [modalOpened, setModalOpened] = useState(true)
 
     return (
-        <div className="flex max-h-screen overflow-hidden">
+        <div className="flex max-h-screen max-w-screen overflow-hidden">
 
             {/* Aside */}
-            <aside className="bg-brown bg-yellow-900 w-24 hidden lg:flex flex-col items-center pt-3">
+            <aside className="bg-brown bg-yellow-900 w-24 hidden lg:flex flex-col items-center pt-3 z-20">
                 <AsideItem image="https://picsum.photos/200" title="Item 1"/>
             </aside>
 
             {/* Main */}
-            <main className="w-full lg:w-80 xl:w-96 h-screen flex flex-col items-center overflow-y-scroll">
+            <main className="bg-light-gray w-full lg:w-80 xl:w-96 h-screen flex flex-col items-center overflow-y-scroll z-20">
 
                 {/* Logo and Input*/}
                 <a href="https://github.com/MarlonVictor/eateryFinder" title="Source Code">
@@ -53,6 +54,11 @@ const App = () => {
                 open={modalOpened} 
                 onClose={() => setModalOpened(!modalOpened)} 
             />
+
+            {/* Map */}
+            <div className="absolute left-0 w-full h-full z-10">
+                <MapContainer />
+            </div>
         </div>
     )
 }

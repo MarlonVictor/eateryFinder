@@ -22,7 +22,7 @@ const ModalUi = ({ title, number, opening_hours, adress, open, onClose }) => {
     if (!open) return null
 
     return ReactDom.createPortal(
-        <div className="fixed top-0 right-0 bottom-0 left-0 flex justify-center items-center bg-blur" onClick={overlayClick}>
+        <div className="fixed top-0 right-0 bottom-0 left-0 flex justify-center items-center bg-blur z-30" onClick={overlayClick}>
             <div className="bg-white w-96 h-auto mb-5 mx-1 p-5 rounded-lg shadow-lg flex flex-col justify-between" onClick={contentClick}>
                 <div>
                     <h2 className="text-xl font-semibold">{title}</h2>

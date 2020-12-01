@@ -6,6 +6,7 @@
   "author": "MarlonVictor <cmarlonvictor11@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "google-maps-react": "^2.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-rating-stars-component": "^2.2.0",
