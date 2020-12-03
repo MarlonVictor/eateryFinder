@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const SearchInput = ({ value, setValue }) => (
+const SearchInput = ({ value, setValue, onKeyPress }) => (
     <div className="flex relative bg-white shadow rounded text-gray-600 w-4/5 px-2 py-1 mb-5">
         <svg className="h-5 sm:h-4 w-5 sm:w-4 mt-1 sm:mt-2" xmlns="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 56.966 56.966" xml="preserve" width="512px" height="512px">
             <path
@@ -11,6 +11,7 @@ const SearchInput = ({ value, setValue }) => (
 
         <input 
             value={value}
+            onKeyPress={onKeyPress}
             onChange={e => setValue(e.target.value)}
             type="search" 
             className="flex-1 ml-3 p-1 rounded border-0 text-sm sm:text-base focus:outline-none" 
