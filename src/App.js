@@ -29,6 +29,7 @@ const App = () => {
                 {/* Aside */}
                 <aside className="bg-brown bg-yellow-900 w-24 hidden lg:flex flex-col items-center pt-3 z-20">
                     <AsideItem image="https://picsum.photos/200" title="Item 1"/>
+                    <button onClick={() => console.log(query)}>kkkkkk</button>
                 </aside>
 
                 {/* Main */}
