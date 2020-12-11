@@ -14,8 +14,11 @@ const App = () => {
     const [inputValue, setInputValue] = useState('')
     const [query, setQuery] = useState('')
     const [modalOpened, setModalOpened] = useState(false)
+    const [placeId, setPlaceId] = useState('')
 
-    const { restaurants } = useSelector(state => state.restaurants)
+    const { restaurants, restaurantSelected } = useSelector(state => state.restaurants)
+    
+    const standardImg = 'https://github.com/MarlonVictor/eateryFinder/blob/master/src/assets/images/SmallLogo.png?raw=true'
 
     function handleKeyPress(e) {
         if (e.key === 'Enter') {
@@ -23,17 +26,22 @@ const App = () => {
         }
     }
 
+    function handleOpenModal(placeId) {
+        setPlaceId(placeId)
+        setModalOpened(true)
+    }
+
     return (
         <div className="flex max-h-screen max-w-screen overflow-hidden">
             {/* Aside */}
             <aside className="bg-brown bg-yellow-900 w-24 hidden lg:flex flex-col items-center pt-3 z-20">
-                {restaurants.slice(0,7).map(restaurants => {
-                   <AsideItem 
-                        key={restaurants.place_id}
-                        title={restaurants.name}
-                        img={restaurants.photos ? restaurants.photos[0].getUrl() : 'https://github.com/MarlonVictor/eateryFinder/blob/master/src/assets/images/SmallLogo.png?raw=true'} 
+                {restaurants.slice(0,7).map(restaurant =>
+                    <AsideItem 
+                        key={restaurant.place_id}
+                        title={restaurant.name}
+                        image={restaurant.photos ? restaurant.photos[0].getUrl() : standardImg}
                     />
-                })}
+                )}
             </aside>
 
             {/* Main */}
@@ -55,24 +63,28 @@ const App = () => {
 
                 {/* Restaurant List */}
                 <div className="flex-1 flex flex-col items-center pr-2">
-                    {restaurants.map(restaurants => 
-                        <RestaurantCard info={restaurants} key={restaurants.place_id} />
+                    {restaurants.map(restaurant => 
+                        <RestaurantCard 
+                            info={restaurant} 
+                            key={restaurant.place_id} 
+                            onClick={() => handleOpenModal(restaurant.place_id)}
+                        />
                     )}
                 </div>
             </main>
 
             <ModalUi 
-                title="Restaurante Rei Do Peixe"
-                number="(415) 772-5000"
-                adress="Av. Dep. Ulisses Guimarães, 467-461 - Jardim Nova California, São João de Meriti - RJ, 25571-250"
-                opening_hours={true}
+                title={restaurantSelected?.name}
+                number={restaurantSelected?.formatted_phone_number}
+                adress={restaurantSelected?.formatted_address}
+                opening_hours={restaurantSelected?.opening_hours?.open_now}
                 open={modalOpened} 
                 onClose={() => setModalOpened(!modalOpened)} 
             />
 
             {/* Map */}
             <div className="absolute left-0 w-full h-full z-10">
-                <MapContainer query={query} />
+                <MapContainer query={query} placeId={placeId} />
             </div>
         </div>
     )

@@ -2,8 +2,8 @@ import React from 'react';
 import ReactStars from 'react-rating-stars-component';
 
 
-const RestaurantCard = ({ info }) => (
-    <div className="bg-white sm:flex mx-auto shadow-lg w-auto h-auto min-h-32 mb-3 rounded-lg rounded-l-none border-l-4 border-white lg:hover:border-yellow-500 transition cursor-pointer">
+const RestaurantCard = ({ info, onClick }) => (
+    <div onClick={onClick} className="bg-white sm:flex mx-auto shadow-lg w-full h-auto min-h-32 md:max-h-44 mb-3 rounded-lg rounded-l-none border-l-4 border-white lg:hover:border-yellow-500 transition cursor-pointer">
         <div className="w-full sm:w-2/3 px-4 py-4 bg-white rounded-lg">
         <h3 className="text-gray-800 font-sans font-semibold mr-auto">{info.name}</h3>
             <ReactStars

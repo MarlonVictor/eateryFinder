@@ -2,10 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 
-import { setRestaurants } from '../redux/modules/restaurants';
+import { setRestaurants, setRestaurant } from '../redux/modules/restaurants';
 
 
-export const MapContainer = ({ google, query='restaurante' }) => {
+export const MapContainer = (props) => {
+    const { google, placeId, query='restaurante' } = props
     const dispatch = useDispatch()
     const [map, setMap] = useState(null)
 
@@ -37,6 +38,27 @@ export const MapContainer = ({ google, query='restaurante' }) => {
         }
     }, [searchByQuery, query, map])
 
+    useEffect(() => {
+        if (placeId) {
+            getRestaurantsDetails(placeId)
+        }
+    }, [placeId])
+
+    function getRestaurantsDetails(placeId) {
+        const service = new google.maps.places.PlacesService(map)
+
+        const request = {
+            placeId,
+            fields: ['name', 'opening_hours', 'formatted_address', 'formatted_phone_number']
+        }
+
+        service.getDetails(request, (place, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                dispatch(setRestaurant(place))
+            }
+        })
+    }
+
     function searchNearby(map, center) {
         const service = new google.maps.places.PlacesService(map)
 
@@ -66,6 +88,7 @@ export const MapContainer = ({ google, query='restaurante' }) => {
             onReady={onMapReady}
             onRecenter={onMapReady}
             zoom={15}
+            {...props}
         >
             {restaurants.map(item => (
                 <Marker 
