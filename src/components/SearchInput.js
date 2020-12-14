@@ -10,6 +10,7 @@ const SearchInput = ({ value, setValue, onKeyPress }) => (
         </svg>
 
         <input 
+            list="options"
             value={value}
             onKeyPress={onKeyPress}
             onChange={e => setValue(e.target.value)}
@@ -17,6 +18,19 @@ const SearchInput = ({ value, setValue, onKeyPress }) => (
             className="flex-1 ml-3 p-1 rounded border-0 text-sm sm:text-base focus:outline-none" 
             placeholder="Procurar restaurantes..."
         />
+
+        <datalist id="options">
+            <option>Restaurante</option>
+            <option>Rodízio</option>
+            <option>Pizzaria</option>
+            <option>Churrascaria</option>
+            <option>Lanchonete</option>
+            <option>Comida Japonesa</option>
+            <option>Food Truck</option>
+            <option>McDonalds</option>
+            <option>Bob's</option>
+            <option>Burguer King</option>
+        </datalist>
     </div>
 )
 

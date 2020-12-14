@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import LogoImg from './assets/images/Logo.png';
 
 import AsideItem from './components/AsideItem.js';
+import LoaderAnimation from './components/LoaderAnimation.js';
 import MapContainer from './components/MapContainer.js';
 import ModalUi from './components/ModalUi.js';
 import RestaurantCard from './components/RestaurantCard.js';
@@ -18,8 +19,9 @@ const App = () => {
 
     const { restaurants, restaurantSelected } = useSelector(state => state.restaurants)
     
-    const standardImg = 'https://github.com/MarlonVictor/eateryFinder/blob/master/src/assets/images/SmallLogo.png?raw=true'
+    const standardImg = 'https://user-images.githubusercontent.com/62356988/101917886-7a28bf00-3ba7-11eb-8711-f7b21ea51b0f.png'
 
+    
     function handleKeyPress(e) {
         if (e.key === 'Enter') {
             setQuery(inputValue)
@@ -51,7 +53,7 @@ const App = () => {
                 <a href="https://github.com/MarlonVictor/eateryFinder" title="Source Code">
                     <img src={LogoImg} className="w-52 sm:w-60 my-2 cursor-pointer" />
                 </a>
-                <SearchInput value={inputValue} setValue={setInputValue} onKeyPress={handleKeyPress}/>
+                <SearchInput value={inputValue} setValue={setInputValue} onKeyPress={handleKeyPress} />
 
                 {/* Map Button */}
                 <button 
@@ -63,29 +65,35 @@ const App = () => {
 
                 {/* Restaurant List */}
                 <div className="flex-1 flex flex-col items-center pr-2">
-                    {restaurants.map(restaurant => 
-                        <RestaurantCard 
-                            info={restaurant} 
-                            key={restaurant.place_id} 
-                            onClick={() => handleOpenModal(restaurant.place_id)}
-                        />
+                    {restaurants.length > 0 ? (
+                        <>
+                            {restaurants.map(restaurant => 
+                                <RestaurantCard 
+                                    info={restaurant} 
+                                    key={restaurant.place_id} 
+                                    onClick={() => handleOpenModal(restaurant.place_id)}
+                                />
+                            )}
+                        </>
+                    ) : (
+                        <LoaderAnimation />
                     )}
                 </div>
             </main>
-
-            <ModalUi 
-                title={restaurantSelected?.name}
-                number={restaurantSelected?.formatted_phone_number}
-                adress={restaurantSelected?.formatted_address}
-                opening_hours={restaurantSelected?.opening_hours?.open_now}
-                open={modalOpened} 
-                onClose={() => setModalOpened(!modalOpened)} 
-            />
 
             {/* Map */}
             <div className="absolute left-0 w-full h-full z-10">
                 <MapContainer query={query} placeId={placeId} />
             </div>
+
+            <ModalUi 
+                title={restaurantSelected?.name}
+                number={restaurantSelected?.formatted_phone_number}
+                adress={restaurantSelected?.formatted_address}
+                opening_hours={restaurantSelected?.opening_hours?.isOpen}
+                open={modalOpened} 
+                onClose={() => setModalOpened(!modalOpened)} 
+            />
         </div>
     )
 }

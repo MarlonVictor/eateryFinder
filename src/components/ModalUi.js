@@ -16,7 +16,7 @@ const ModalUi = ({ title, number, opening_hours, adress, open, onClose }) => {
         window.addEventListener('keydown', onEsc)
 
         return () => window.removeEventListener('keydown', onEsc)
-      }, [onClose])
+    }, [onClose])
     
 
     if (!open) return null
