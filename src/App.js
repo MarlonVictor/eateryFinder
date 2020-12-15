@@ -16,6 +16,7 @@ const App = () => {
     const [query, setQuery] = useState('')
     const [modalOpened, setModalOpened] = useState(false)
     const [placeId, setPlaceId] = useState('')
+    const [fullMap, setFullMap] = useState(false)
 
     const { restaurants, restaurantSelected } = useSelector(state => state.restaurants)
     
@@ -57,11 +58,24 @@ const App = () => {
 
                 {/* Map Button */}
                 <button 
+                    onClick={() => setFullMap(true)}
                     className='bg-brown bg-yellow-900 hover:bg-yellow-900 text-white text-xs sm:text-base font-bold relative w-4/5 mb-5 p-2 rounded lg:hidden border-b-4 border-yellow-900 hover:border-yellow-800 transition-colors'
                 >
                     Abrir o mapa
-                    <span className="text-xs absolute top-0 right-0 -mt-4 -mr-4 px-2 py-1 bg-yellow-500 rounded-full">+99</span>
+                    <span className="text-xs absolute top-0 right-0 -mt-4 -mr-4 px-2 py-1 bg-yellow-500 rounded-full">{restaurants.length}</span>
                 </button>
+
+                {fullMap && (
+                    <div className="absolute left-0 w-full h-full z-20">
+                        <MapContainer query={query} placeId={placeId} />
+                        
+                        <button onClick={() => setFullMap(false)} className="absolute right-2 top-2 bg-red-600 w-11 h-11 text-white rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                )}
 
                 {/* Restaurant List */}
                 <div className="flex-1 flex flex-col items-center pr-2">
